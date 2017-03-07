@@ -38,6 +38,10 @@ li a {
   width: auto;
   float: right;
 }
+.signupbutton li{
+  width: auto;
+  float: right;
+}
 li a:hover:not(.active) {
     background-color: #111;
 }
@@ -142,6 +146,47 @@ span.psw {
     animation: animatezoom 0.6s
 }
 
+/* Extra styles for the cancel button */
+.cancelsignupbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelsignupbtn,.signupbtn {float:left;width:50%}
+
+/* The Close Button (x) */
+.closesignup {
+   position: absolute;
+   right: 150px;
+   top: 125px;
+   color: #000;
+   font-size: 35px;
+   font-weight: bold;
+  /*
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    color: #000;
+    font-size: 40px;
+    font-weight: bold; */
+}
+
+.closesignup:hover,
+.closesignup:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+
 @-webkit-keyframes animatezoom {
     from {-webkit-transform: scale(0)}
     to {-webkit-transform: scale(1)}
@@ -152,13 +197,13 @@ span.psw {
     to {transform: scale(1)}
 }
 
-/* Change styles for span and cancel button on extra small screens */
+/* Change styles for span, cancel and signup button on extra small screens */
 @media screen and (max-width: 300px) {
     span.psw {
        display: block;
        float: none;
     }
-    .cancelbtn {
+    .cancelbtn, .signupbtn {
        width: 100%;
     }
 }
