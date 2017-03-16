@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Results from database</title>
-<link rel="stylesheet"type="text/css"href="style.css">
+<link rel="stylesheet"type="text/css"href="mainstyle.css">
 </head>
 <body>
 <?php
@@ -50,15 +50,18 @@
 
   if($result->num_rows > 0) {
     while($row = $result->fetch_assoc())  {
-      echo "----------------------------------------";
-      echo"<br>Id: ".$row["ID"];
-      echo"<br>Title: ". $row["Title"];
-      echo"<br>Description: ".$row["Description"];
-      echo"<br>Authour: ".$row["Name"];
-      echo"<br>TM Code: ".$row["TMCode"];
-      echo"<br>Authour Id: ".$row["AuthourId"];
-      echo"<br>Is public?:".$row["IsPublic"];
-      echo "<br>----------------------------------------";
+      if($row["IsPublic"] == 1)
+      {
+        echo "----------------------------------------";
+        echo"<br>Id: ".$row["ID"];
+        echo"<br>Title: ". $row["Title"];
+        echo"<br>Description: ".$row["Description"];
+        echo"<br>Authour: ".$row["Name"];
+        echo"<br>TM Code: ".$row["TMCode"];
+        echo"<br>Authour Id: ".$row["AuthourId"];
+        echo"<br>Is public?:".$row["IsPublic"];
+        echo "<br>----------------------------------------";
+      }
     echo "<br>";
     }//
   }
