@@ -12,9 +12,6 @@
   // Connect to the database
 
   $mysqli = new  mysqli($database_host, $database_user, $database_pass, $database_name);
-  $members = array("Matti","Sam","Abdullah","Oli","mohammed","Robert","Izzuna");
-  $arrayLength = count($members);
-
 
   //Check for errors before doing anything else
   if($mysqli -> connect_error)  {
@@ -24,22 +21,6 @@
   $sql = "SELECT Id, Name, Email  FROM Users";
   $result = $mysqli->query($sql);
 
-  if($result->num_rows > 0) {
-    while($row = $result->fetch_assoc())  {
-      echo "Id: ".$row["Id"]." - Name: ". $row["Name"]." - Email: ".
-           $row["Email"];
-    global $arrayLength;
-    for($i = 0;$i < $arrayLength; $i++){
-        global $members;
-        if($row["Name"] == $members[$i]){
-          echo", I notice that  you are part of the group M4.";}//check memebrs if
-       }// if
-    echo "<br>";
-    }// for loop through memebers
-  }
-  else {
-    echo "0 results";
-  }
 
   echo "<br> <br>";
   //method for outputting the TM
