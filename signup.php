@@ -25,14 +25,14 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
   $unameStore = $_POST["uname"];
   $emailStore = $_POST["email"];
   $passwordStore = $_POST["password"];
-  $sql = "INSERT IGNORE INTO Users (uname, email, password)
+  $sql = "INSERT IGNORE INTO Users (Name, Email, Password)
           VALUES ('$unameStore', '$emailStore', md5('$passwordStore'))";
           // Change to use bcrypt later
 
   // Check to make sure not duplicate entry
-  $result = $connection->query("SELECT uname, email FROM Users WHERE
-                            uname = '$unameStore' OR
-                            email = '$emailStore'");
+  $result = $connection->query("SELECT Name, Email FROM Users WHERE
+                            Name = '$unameStore' OR
+                            Email = '$emailStore'");
   if ($result->num_rows > 0) {
     echo "That user already exists." . "<br>";
   } // if
