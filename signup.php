@@ -1,4 +1,7 @@
 <html>
+<head>
+<link rel="stylesheet"type="text/css"href="mainstyle.css">
+</head>
 <body>
 
 
@@ -24,10 +27,13 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 
   $unameStore = $_POST["uname"];
   $emailStore = $_POST["email"];
-  $passwordStore = $_POST["password"];
-  $sql = "INSERT IGNORE INTO Users (Name, Email, Password)
-          VALUES ('$unameStore', '$emailStore', md5('$passwordStore'))";
-          // Change to use bcrypt later
+  $passwordStore = $_POST["psw"];
+
+  // Hash password using BCRYPT
+  $salt = substr(strtr(base64_encode(openssl_random_pseudo_bytes(22)), '+', '.'),0,22);
+   //In later versions this will be querying the databse for the hash 
+  // stored in the PSWD table
+  $hash = crypt('password' ,'$2y$12$'. $salt);
 
   // Check to make sure not duplicate entry
   $result = $connection->query("SELECT Name, Email FROM Users WHERE
@@ -37,13 +43,18 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
     echo "That user already exists." . "<br>";
   } // if
   else {
-    if ($connection->query($sql) === TRUE) {
+
+    // Insert user into database
+    $insert_user = "INSERT IGNORE INTO Users (Name, Email, Hash)
+    VALUES ('$unameStore', '$emailStore', '$hash')";
+
+    if ($connection->query($insert_user) === TRUE) {
       echo "Profile created and stored successfully." . "<br>";
       echo "Welcome " . $_POST["uname"] . "<br>";
       echo "Your email is: " . $_POST["email"] . "<br>";
     } // if
     else {
-      echo "Error: " . $sql . "<br>" . $connection->error;
+      echo "Error: " . $insert_user . "<br>" . $connection->error;
     } // else
   } // else
 
