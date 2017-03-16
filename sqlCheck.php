@@ -43,13 +43,15 @@
 
   echo "<br> <br>";
   //method for outputting the TM
-  $sql = "SELECT t.*, u.Name, u.Id FROM Users AS u JOIN TM AS t ON t.AuthourId = u.Id ";
+  $sql = "SELECT Users.Name, TM.*, TM.ID
+          FROM Users, TM
+          WHERE Users.Id = TM.AuthourId";
   $result = $mysqli->query($sql);
 
   if($result->num_rows > 0) {
     while($row = $result->fetch_assoc())  {
       echo "----------------------------------------";
-      echo"<br>Id: ".$row["Id"];
+      echo"<br>Id: ".$row["ID"];
       echo"<br>Title: ". $row["Title"];
       echo"<br>Description: ".$row["Description"];
       echo"<br>Authour: ".$row["Name"];
