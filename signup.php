@@ -28,12 +28,14 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
   $unameStore = $_POST["uname"];
   $emailStore = $_POST["email"];
   $passwordStore = $_POST["psw"];
-
+/*
   // Hash password using BCRYPT
   $salt = substr(strtr(base64_encode(openssl_random_pseudo_bytes(22)), '+', '.'),0,22);
    //In later versions this will be querying the databse for the hash 
   // stored in the PSWD table
   $hash = crypt('password' ,'$2y$12$'. $salt);
+*/
+  $hash = password_hash($passwordStore, PASSWORD_BCRYPT);
 
   // Check to make sure not duplicate entry
   $result = $connection->query("SELECT Name, Email FROM Users WHERE
