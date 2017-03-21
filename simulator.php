@@ -339,7 +339,8 @@ window.onclick = function(event) {
                       $this->step_count += 1;
                       $this->ticker_tapes[$this->index_tape(explode("@", $rule[2])[1])]->write(explode("@", $rule[2])[0]);
                       {
-                          if ($rule[2] == "l")
+                          $direction = explode("@", $rule[3])[0];
+                          if ($direction == "l")
                           {
                               $this->ticker_tapes[$this->index_tape(explode("@", $rule[3])[1])]->move_left();
                           }
@@ -348,12 +349,15 @@ window.onclick = function(event) {
                               $this->ticker_tapes[$this->index_tape(explode("@", $rule[3])[1])]->move_right();
                           }
                           $this->current_state = $rule[4];
-                          array_push($return_array, $this->return_current_state());
+
+                          $x = $this->return_current_state();
+                          array_push($return_array, array_merge($x, array($rule[3], explode("@", $rule[2])[1])));
                       }
                   }
               }
           }
           return json_encode($return_array);
+
       }
   }
 
@@ -361,7 +365,7 @@ window.onclick = function(event) {
   {
       return array(array("tape", "tape2", "tape3"), array("R", "S", "E"), "S", array("E"), array("1", "0", "#"), "0", array(array("S", "#@tape", "#@tape", "r@tape", "R"),
           array("S", "0@tape", "1@tape", "r@tape", "R"), array("S", "1@tape", "0@tape", "r@tape", "R"), array("R", "0@tape", "1@tape", "r@tape", "R"),
-          array("R", "1@tape", "0@tape", "r@tape", "R"), array("R", "#@tape", "#@tape", "r@tape", "E")), array(array("#", "1", "0", "1", "1", "0", "1", "0", "#")), 200);
+          array("R", "1@tape", "0@tape", "r@tape", "R"), array("R", "#@tape", "#@tape", "r@tape2", "E")), array(array("#", "1", "0", "1", "1", "0", "1", "0", "#"), array("1", "1")), 200);
   }
 
   function create_machine($required_input_array)
@@ -386,7 +390,8 @@ window.onclick = function(event) {
           }
           foreach ($required_input_array[7] as $data)
           {
-              $_SESSION['machine']->add_string($data, "tape");
+
+              $_SESSION['machine']->add_string($data, $required_input_array[0][array_search($data, $required_input_array[7])]);
           }
           $_SESSION['machine']->set_step_limit($required_input_array[8]);
       } else {
@@ -456,16 +461,22 @@ window.onclick = function(event) {
 
           var tape_div = "<div id=\""+tape_name+"\" class=\"tape_div\"></div>";
           $("#tapes").append(tape_div);
-          $('#'+tape_name).append("<div id=\"description@"+tape_name+"\" class=\"tape_description\">"+tape_name+"</div>")
+          $('#'+tape_name).append("<div id=\"description@"+tape_name+"\" class=\"tape_description\">"+tape_name+"<br><div id=\"direction@"+tape_name+"\" class=\"tape_direction\"><></div>")
           for (var i = 0; i < 15; i++)
           {
-              $("#"+tape_name).append("<div id=\""+i+"@"+tape_name+"\" class=\"tape_pos\"></div>");
+              if (i != 7) {
+                  $("#" + tape_name).append("<div id=\"" + i + "@" + tape_name + "\" class=\"tape_pos\"></div>");
+              }
+              else{
+                  $("#" + tape_name).append("<div id=\"" + i + "@" + tape_name + "\" class=\"tape_pos\" style='background-color: dimgray'></div>");
+              }
           }
+
+
       }
 
       function set_string(tape_name, tape_data) {
 
-          console.log(tape_data);
 
 
 
@@ -473,7 +484,6 @@ window.onclick = function(event) {
           tape_data = tape_data.split("");
           for (var i = 0; i < 15; i++)
           {
-              console.log(i+"@"+tape_name+" = " + tape_data[i]);
               $(document.getElementById(i+"@"+tape_name)).text(tape_data[i]);
           }
 
@@ -482,7 +492,6 @@ window.onclick = function(event) {
       function init_machine(start_state) {
           for (var i = 0; i < start_state[1].length; i++)
           {
-              console.log(start_state[1][i])
               add_tape(start_state[1][i]);
               set_string(start_state[1][i], start_state[0][i]);
           }
@@ -495,35 +504,58 @@ window.onclick = function(event) {
               init_machine(output_array[0]);
               $("#tapes-title").text("Step: 0 - Tapes - State: "+output_array[0][3])
 
-              set_string_timer(1, 0);
+              setTimeout(function(){set_string_timer(1, 0)}, 2000);
           }
       }
 
       function set_string_timer(ix, tape) {
 
-          tape_data = output_array[ix][0];
-
-          tape_data = tape_data+'';
-          tape_data = tape_data.split("");
 
 
-          $("#tapes-title").text("Step: "+output_array[ix-1][2]+" - Tapes - State: "+output_array[ix-1][3])
 
-          for (i = 0; i < 15; i++)
-          {
-              console.log(i+"@tape = " + tape_data[i]);
-              $(document.getElementById(i+"@tape")).text(tape_data[i]);
+          $("#tapes-title").text("Step: "+output_array[ix][2]+" - Tapes - State: "+output_array[ix][3])
+
+
+          for (itape = 0; itape<output_array[0][1].length; itape++) {
+              move = output_array[ix][4].split("@");
+
+
+
+              if (move[1] == output_array[0][1][itape]){
+                  if (move[0]== "l") {
+                    $(document.getElementById("direction@" + output_array[0][1][itape])).text("<");
+                }
+                else if (move[0] == "r") {
+                    $(document.getElementById("direction@" + output_array[0][1][itape])).text(">");
+                }
+              }
+
+
+
+              for (i = 0; i < 15; i++) {
+                  tape_data = output_array[ix][0][itape];
+
+                  tape_data = tape_data + '';
+                  tape_data = tape_data.split("");
+
+
+
+                  $(document.getElementById(i + "@" + output_array[0][1][itape])).text(tape_data[i]);
+              }
           }
 
-          setTimeout(function() { (function(ix, tape){
-              if (ix < output_array.length && tape >= output_array[0][1].length) {
-                  set_string_timer(ix + 1, 0);
-              }
-              else if (ix < output_array.length && tape < output_array[0][1].length) {
-                  console.log(ix+" sdfsdf "+tape)
-                  set_string_timer(ix, tape + 1);
-              }
-          })(ix, tape);}, 500);
+          if(output_array[ix][2]<output_array.length-1) {
+              setTimeout(function () {
+                  (function (ix, tape) {
+                      if (ix < output_array.length && tape >= output_array[0][1].length) {
+                          set_string_timer(ix + 1, 0);
+                      }
+                      else if (ix < output_array.length && tape < output_array[0][1].length) {
+                          set_string_timer(ix, tape + 1);
+                      }
+                  })(ix, tape);
+              }, 500);
+          }
       }
   </script>
 
