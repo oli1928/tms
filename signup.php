@@ -25,6 +25,7 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
     $result -> close(); // Remember to relese the result set
   } // if
 
+  $nameStore = $_POST["name"];
   $unameStore = $_POST["uname"];
   $emailStore = $_POST["email"];
   $passwordStore = $_POST["psw"];
@@ -38,8 +39,8 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
   $hash = password_hash($passwordStore, PASSWORD_BCRYPT);
 
   // Check to make sure not duplicate entry
-  $result = $connection->query("SELECT Name, Email FROM Users WHERE
-                            Name = '$unameStore' OR
+  $result = $connection->query("SELECT Uname, Email FROM Users WHERE
+                            Uname = '$unameStore' OR
                             Email = '$emailStore'");
   if ($result->num_rows > 0) {
     echo "That user already exists." . "<br>";
@@ -47,18 +48,24 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
   else {
 
     // Insert user into database
-    $insert_user = "INSERT IGNORE INTO Users (Name, Email, Hash)
-    VALUES ('$unameStore', '$emailStore', '$hash')";
+    $insert_user = "INSERT IGNORE INTO Users (Uname, Name, Email, Hash)
+    VALUES ('$unameStore', '$nameStore', '$emailStore', '$hash')";
 
     if ($connection->query($insert_user) === TRUE) {
       echo "Profile created and stored successfully." . "<br>";
       echo "Welcome " . $_POST["uname"] . "<br>";
       echo "Your email is: " . $_POST["email"] . "<br>";
+      $_SESSION["uname"] = $unameStore;
     } // if
     else {
       echo "Error: " . $insert_user . "<br>" . $connection->error;
     } // else
   } // else
+  $host  = $_SERVER['HTTP_HOST'];
+  $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  $extra = 'index.php';
+  header("Location: http://$host$uri/$extra");
+  exit;
 
   // Close connection to database_host
   $connection -> close();

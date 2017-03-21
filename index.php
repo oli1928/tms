@@ -80,6 +80,9 @@ window.onclick = function(event) {
   <span onclick="document.getElementById('id02').style.display='none'" class="closesignup" title="Close Modal">×</span>
   <form class="modal-content animate" action="signup.php" method = "post">
     <div class="container">
+      <label><b>Name</b></label>
+      <input type="text" placeholder="Enter your name" name="name" required>
+
       <label><b>Username</b></label>
       <input type="text" placeholder="Enter Username" name="uname" required>
       <label><b>Email</b></label>
