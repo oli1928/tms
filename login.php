@@ -46,20 +46,12 @@ if($result = $connection -> query("SELECT * FROM Things")) {
       echo $row["Hash"] . $row["Id"]. "<br>";
       if(password_verify($passwordStore, $row["Hash"]))
       {
-<<<<<<< HEAD
-        echo "Worked" . "<br>";
-
-         echo $_SESSION["uname"] . "<br>";
-=======
->>>>>>> workingOnLoginPage
         $_SESSION["uname"] = $unameStore;
         
-<<<<<<< HEAD
 
 	$_SESSION["Id"] = $row['Id'];
 	echo $_SESSION['Id'];
 
-=======
 	      $_SESSION["Id"] = $row['Id'];
        // echo '   <a href="myMachines.php">Click here to See your machines</a>';
 
@@ -71,7 +63,6 @@ if($result = $connection -> query("SELECT * FROM Things")) {
         header("Location: http://$host$uri/$myMachines");
         exit;
         
->>>>>>> workingOnLoginPage
       } // if
       else {
          // User puts wrong username/password so send them back to index.php
@@ -93,24 +84,4 @@ if($result = $connection -> query("SELECT * FROM Things")) {
      exit;
      $connection -> close();
    } // else
-<<<<<<< HEAD
-
-
-
-
-  echo $_SESSION["Id"];
- // echo '   <a href="myMachines.php">Click here to See your machines</a>';
-
-  //Inspired by php.net
-  $host = $_SERVER['HTTP_HOST'];
-  $uri = rtrim(dirname($_SERVER['PHP_SELF']),'/\\');
-  $extra = 'index.html';
-  header("refresh:5; url=myMachines.php");
-  exit;
-
-
-
-
-=======
->>>>>>> workingOnLoginPage
 ?>
