@@ -75,31 +75,40 @@ textarea:focus{
     padding: 10px;
 }
 .tape_pos {
-    width: 75px;
+    width: 4vw;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    height: 75px;
+    height: 4vw;
     border-width: 2px;
     border-color: black;
     border-style: solid;
     background-color: #CCC9A1;
     padding: 3px;
     font-family: "Century Gothic";
-    font-size: 60px;
+    font-size: 3vw;
 }
 
+
+
 .tape_description {
-    width: 125px;
+    width: 6vw;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
-    height: 75px;
+    height: 4vw;
     border-width: 2px;
     border-color: black;
     border-style: solid;
-    background-color: #CCC9A1;
+    background-color: dimgray;
     padding: 3px;
+    font-size: 1vw;
+    text-align: center;
+}
+
+.tape_direction {
+    font-size: 2vw;
 }
 
 button {
@@ -132,5 +141,5 @@ input {
 }
 
 #control-button{
-    width: 90px;
+    width: 50%;
 }
