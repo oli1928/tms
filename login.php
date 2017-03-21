@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 <head>
 <link rel="stylesheet"type="text/css"href="mainstyle.css">
@@ -43,6 +46,10 @@
       if(password_verify($passwordStore, $row["Hash"]))
       {
         echo "Worked" . "<br>";
+         echo $_SESSION["uname"] . "<br>";
+        $_SESSION["uname"] = $unameStore;
+        echo $_SESSION["uname"] . "<br>";
+        
       } // if
       else {
        echo "Incorrect username or password" . "<br>";
@@ -54,27 +61,4 @@
      echo "Incorrect Username or Password." . "<br>";
      $connection -> close();
    } // else
-
-/*
-    // Insert user into database
-    $insert_user = "INSERT IGNORE INTO Users (Name, Email, Hash)
-    VALUES ('$unameStore', '$emailStore', '$hash')";
-
-    if ($connection->query($insert_user) === TRUE) {
-      echo "Profile created and stored successfully." . "<br>";
-      echo "Welcome " . $_POST["uname"] . "<br>";
-      echo "Your email is: " . $_POST["email"] . "<br>";
-    } // if
-    else {
-      echo "Error: " . $insert_user . "<br>" . $connection->error;
-    } // else
-  } // else
-
-  // Close connection to database_host
-  $connection -> close();
-} // if
-else {
-  echo "Invalid email" . "<br>";
-}
-*/
 ?>
