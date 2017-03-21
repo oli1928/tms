@@ -35,11 +35,11 @@
   if ($result->num_rows > 0) {
     // If user does indeed exist
 
-    $hashedPSWD_Query = "SELECT Hash FROM Users WHERE Name = '$unameStore'";
+    $hashedPSWD_Query = "SELECT Hash, Id FROM Users WHERE Name = '$unameStore'";
     $hashedPSWD = $connection->query($hashedPSWD_Query);
     if($hashedPSWD->num_rows > 0){
       $row = $hashedPSWD->fetch_assoc();
-      echo $row["Hash"] . "<br>";
+      echo $row["Hash"] . $row["Id"]. "<br>";
       if(password_verify($passwordStore, $row["Hash"]))
       {
         echo "Worked" . "<br>";
@@ -55,26 +55,5 @@
      $connection -> close();
    } // else
 
-/*
-    // Insert user into database
-    $insert_user = "INSERT IGNORE INTO Users (Name, Email, Hash)
-    VALUES ('$unameStore', '$emailStore', '$hash')";
 
-    if ($connection->query($insert_user) === TRUE) {
-      echo "Profile created and stored successfully." . "<br>";
-      echo "Welcome " . $_POST["uname"] . "<br>";
-      echo "Your email is: " . $_POST["email"] . "<br>";
-    } // if
-    else {
-      echo "Error: " . $insert_user . "<br>" . $connection->error;
-    } // else
-  } // else
-
-  // Close connection to database_host
-  $connection -> close();
-} // if
-else {
-  echo "Invalid email" . "<br>";
-}
-*/
 ?>
