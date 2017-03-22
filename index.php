@@ -1,6 +1,7 @@
 <?php
 ob_start();
 session_start();
+$SignedIn;
 ?>
 <!DOCTYPE html>
 <!-- Used w3Schools -->
@@ -8,22 +9,25 @@ session_start();
 <title>
   Turing Machine Simulator
 </title>
-<?php
-  if(isset($_SESSION['Id'])){
-    echo "Hello id: ". $_SESSION['Id'];
-  } // if
-  else {
-    $_SESSION["uname"] = "default";
-    echo "Not currently signed in";
-  }
-  ?>
+
 <head>
   <link rel="stylesheet" type="text/css" href="mainstyle.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
   <span class="title-tms">TURING MACHINE SIMULATOR</span>
+  <?php
+  if(isset($_SESSION['Id'])){
+    echo "Hello id: ". $_SESSION['Id'];
+    $SignedIn = True;
+  } // if
+  else {
+    $_SESSION["uname"] = "default";
+    echo "Not currently signed in";
+    $SignedIn = 
 
+  }
+  ?>
   <div class="nav-bar">
     <ul>
       <li><a class="active" href="#home">Home</a></li>
