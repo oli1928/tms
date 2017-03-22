@@ -14,6 +14,35 @@
     color:#FFFCF9;
 }
 
+script{
+    white-space: pre-wrap;
+}
+
+#save-load-form{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    border-width: 2px;
+    border-top-width: 0px;
+    border-color: black;
+    border-style: solid;
+    position: relative;
+    width: 90%;
+    height: 200px;
+    top: 20px;
+    left: 5%;
+    color:black;
+    text-align: center;
+
+}
+
+.save-load{
+    display: flex;
+    position: absolute;
+    width: 100%;
+
+}
+
 #text-input-div{
     text-align:center;
     padding:50px;
@@ -85,8 +114,10 @@ textarea:focus{
     border-style: solid;
     background-color: #CCC9A1;
     padding: 3px;
-    font-family: "Century Gothic";
+    font-family: "Courier New", "Courier", "monospace";
     font-size: 3vw;
+    text-align: center;
+    vertical-align: middle;
 }
 
 
@@ -142,4 +173,8 @@ input {
 
 #control-button{
     width: 50%;
+}
+
+#textarea-input{
+    width: 100%;
 }
