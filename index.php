@@ -14,6 +14,7 @@ session_start();
   } // if
   else {
     $_SESSION["uname"] = "default";
+    echo "Not currently signed in";
   }
   ?>
 <head>
