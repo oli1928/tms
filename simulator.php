@@ -404,7 +404,7 @@ window.onclick = function(event) {
   {
       create_machine("train");
       $_SESSION['array'] = $_SESSION['machine']->run();
-      $_SESSION['code'] = preg_replace("/\n\r/", "~", $_POST['input']);
+      $_SESSION['code'] = $_POST['input'];
 
   }
 
@@ -483,7 +483,7 @@ window.onclick = function(event) {
       }
 
 //Variables to store the TMCode and later will put in the compiler to check the validity of the code
-      $TMCode = $_POST["input"];
+      $TMCode = $_SESSION['code'];
       $TMCode_valid = false;
 //checks for an empty string
       if($TMCode == " "){
@@ -492,7 +492,7 @@ window.onclick = function(event) {
 //assuming all is good TMCode is passed on
       else{
           echo"Your TM code to be entered into the database is"."<br>".": ";
-          echo$_POST["input"];
+          echo$_SESSION['code'];
           echo "<br>";
           $TMCode_valid = true;
       }
@@ -747,7 +747,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode','$AuthourId')";
         {
             line_nums += (i+1)+"<br>";
         }
-        setKeywordText("input", code.replace("~~", "\n\r"));
+        setKeywordText("input", code);
         document.getElementById("input").setAttribute("rows", length);
         $(document.getElementById("line-numbers")).append(line_nums);
 
