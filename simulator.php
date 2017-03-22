@@ -403,6 +403,8 @@ window.onclick = function(event) {
   {
       create_machine("train");
       $_SESSION['array'] = $_SESSION['machine']->run();
+      $_SESSION['code'] = preg_replace("/\n\r/", "~", $_POST['input']);
+
   }
   ?>
 
@@ -454,7 +456,6 @@ window.onclick = function(event) {
 
   <script>
       var output_array;
-      var paused = false;
       var running = false;
 
       function add_tape(tape_name) {
@@ -574,13 +575,60 @@ window.onclick = function(event) {
               <input type="submit" value="Compile" name="compile">
               <div id="text-input-div" style="overflow-y: scroll; height:600px;">
                   <div class="container">
-                      <div class="line-nums"><span>1</span></div>
-                      <textarea id="input"></textarea>
+                      <div class="line-nums"><span id="line-numbers"></span></div>
+                      <textarea wrap="hard" id="input" name="input"></textarea>
                   </div>
               </div>
           </form>
-
   </div>
+
+  <div id="save-load-form">
+      SAVE/LOAD
+      <div class="save-load">
+      <form method="post">
+          <select>
+          </select>
+          <input type="submit">
+
+          <input type="submit">
+          <input type="text">
+          <textarea cols="80" rows="10"></textarea>
+      </form>
+      </div>
+  </div>
+
+<script>
+    function setKeywordText(id, text) {
+        var el = document.getElementById(id);
+        el.value = text;
+        var evt = document.createEvent("Events");
+        evt.initEvent("change", true, true);
+        el.dispatchEvent(evt);
+    }
+
+
+
+    function setCode(code) {
+        console.log(code);
+        code_array = code.split("\n");
+        length = code_array.length;
+        line_nums = "";
+        for (i = 0; i < code_array.length; i++)
+        {
+            line_nums += (i+1)+"<br>";
+        }
+        setKeywordText("input", code.replace("~~", "\n\r"));
+        document.getElementById("input").setAttribute("rows", length);
+        $(document.getElementById("line-numbers")).append(line_nums);
+
+    }
+
+    stuff = ""+<?php echo json_encode($_SESSION['code'])?>;
+
+    setCode(stuff);
+
+
+</script>
 
 </body>
 </html>
