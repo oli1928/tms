@@ -562,11 +562,41 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
       $connection->close();
 
-      echo '<script type="text/javascript">',
-      'updateTMList();',
-      '</script>'
-      ;
+      get_user_machines();
 
+
+  }
+  if (isset($_POST['load'])){
+      require_once('config.inc.php');
+
+      // Connect to the database
+
+      $mysqli = new  mysqli($database_host, $database_user, $database_pass, "2016_comp10120_m4");
+      $user_id = $_SESSION['Id'];
+      //Check for errors before doing anything else
+      if ($mysqli->connect_error) {
+          die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+      }
+
+      $sql = "SELECT TM.TMCode, TM.Title, TM.AuthourId, Users.Id
+          FROM Users, TM
+          WHERE Users.Id = TM.AuthourId";
+      $result = $mysqli->query($sql);
+
+      $_SESSION['Tms'] = array();
+
+      if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+              if ($row["AuthourId"] == $user_id) {
+
+                 if ($row["Title"] == $_POST['select']){
+                     $_SESSION['code'] = $row["TMCode"];
+                 }
+
+              } // if
+          } // while
+      }
+      $mysqli->close();
   }
 
 
@@ -785,7 +815,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
       <div class="save-load">
       <form method="post" id="slform">
           <div id="select-div">
-          <select id="select">
+          <select id="select" name="select">
           </select>
           </div>
           <input type="submit" value="Load" name="load">
@@ -837,7 +867,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
         tm = <?php echo $_SESSION['Tms']?>;
 
         $(document.getElementById("select")).remove();
-        $(document.getElementById("select-div")).append("<select id='select'></select>");
+        $(document.getElementById("select-div")).append("<select id='select' name='select'></select>");
 
         for (i=0; i<tm.length; i++)
         {
