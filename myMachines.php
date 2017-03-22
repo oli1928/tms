@@ -8,7 +8,6 @@ session_start();
 </head>
 <body>
 <?php
-  session_start();
   // Load the config file containg my database details
   require_once('config.inc.php');
 
