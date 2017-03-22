@@ -17,6 +17,7 @@ $SignedIn;
 <body>
   <span class="title-tms">TURING MACHINE SIMULATOR</span>
   <h1>
+  <br><br>
   <?php
   if(isset($_SESSION['Id'])){
     echo "Hello id: ". $_SESSION['Id'];
