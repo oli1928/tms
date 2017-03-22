@@ -43,7 +43,12 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
                             Uname = '$unameStore' OR
                             Email = '$emailStore'");
   if ($result->num_rows > 0) {
-    echo "That user already exists." . "<br>";
+    // Send user back to index.php
+    $host  = $_SERVER['HTTP_HOST'];
+    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    $indexPHP = 'index.php';
+    header("Location: http://$host$uri/$indexPHP");
+     exit;
   } // if
   else {
 
@@ -52,19 +57,19 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
     VALUES ('$unameStore', '$nameStore', '$emailStore', '$hash')";
 
     if ($connection->query($insert_user) === TRUE) {
-      echo "Profile created and stored successfully." . "<br>";
-      echo "Welcome " . $_POST["uname"] . "<br>";
-      echo "Your email is: " . $_POST["email"] . "<br>";
       $_SESSION["uname"] = $unameStore;
+      // Send user back to index.php
+      $host  = $_SERVER['HTTP_HOST'];
+      $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+      $indexPHP = 'index.php';
+      header("Location: http://$host$uri/$indexPHP");
+       exit;
     } // if
     else {
       echo "Error: " . $insert_user . "<br>" . $connection->error;
     } // else
   } // else
-  $host  = $_SERVER['HTTP_HOST'];
-  $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-  $extra = 'index.php';
-  header("Location: http://$host$uri/$extra");
+
   exit;
 
   // Close connection to database_host
@@ -72,10 +77,11 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 } // if
 else {
   // Invalid email so send back to index.php
+  // Send user back to index.php
   $host  = $_SERVER['HTTP_HOST'];
   $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-  $extra = 'index.php';
-  header("Location: http://$host$uri/$extra");
+  $indexPHP = 'index.php';
+  header("Location: http://$host$uri/$indexPHP");
   exit;
 }
 ?>

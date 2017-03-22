@@ -47,13 +47,7 @@ if($result = $connection -> query("SELECT * FROM Things")) {
       if(password_verify($passwordStore, $row["Hash"]))
       {
         $_SESSION["uname"] = $unameStore;
-        
-
-	$_SESSION["Id"] = $row['Id'];
-	echo $_SESSION['Id'];
-
 	      $_SESSION["Id"] = $row['Id'];
-       // echo '   <a href="myMachines.php">Click here to See your machines</a>';
 
         //Inspired by php.net
         //header("refresh:5; url=myMachines.php");
