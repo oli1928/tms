@@ -502,7 +502,7 @@ window.onclick = function(event) {
       require_once('config.inc.php');
 
 // Create a connection to the database
-      $connection = new mysqli($database_host, $database_user, $database_pass, $database_name);
+      $connection = new mysqli($database_host, $database_user, $database_pass, "2016_comp10120_m4");
 
 //then check the connection
       if($connection  ->connect_error) {
