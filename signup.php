@@ -71,6 +71,11 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
   $connection -> close();
 } // if
 else {
-  echo "Invalid email" . "<br>";
+  // Invalid email so send back to index.php
+  $host  = $_SERVER['HTTP_HOST'];
+  $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  $extra = 'index.php';
+  header("Location: http://$host$uri/$extra");
+  exit;
 }
 ?>

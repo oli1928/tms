@@ -44,6 +44,10 @@ li a {
   width: auto;
   float: right;
 }
+.logoutbutton li{
+  width: auto;
+  float: right;
+}
 li a:hover:not(.active) {
     background-color: #111;
 }
