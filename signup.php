@@ -13,7 +13,7 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
   require_once('config.inc.php');
 
   // Create connection to database
-  $connection = new mysqli($database_host, $database_user, $database_pass, $database_name);
+  $connection = new mysqli($database_host, $database_user, $database_pass, "2016_comp10120_m4");
 
   if($connection -> connect_error) {
     die('Connect Error ('.$connection -> connect_errno.') '.$connection -> connect_error);
