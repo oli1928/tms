@@ -28,7 +28,7 @@ script{
     border-style: solid;
     position: relative;
     width: 90%;
-    height: 200px;
+    height: 440px;
     top: 20px;
     left: 5%;
     color:black;
@@ -39,7 +39,8 @@ script{
 .save-load{
     display: flex;
     position: absolute;
-    width: 100%;
+    width: 90%;
+    left: 5%;
 
 }
 
@@ -172,9 +173,23 @@ input {
 }
 
 #control-button{
-    width: 50%;
+    width: 100%;
 }
 
 #textarea-input{
+    width: 100%;
+}
+
+#description{
+    width: 100%;
+}
+
+#ab{
+    width: 100%;
+    display: inline-block;
+}
+
+#slform{
+    display: inline-block;
     width: 100%;
 }
