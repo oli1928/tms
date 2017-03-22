@@ -45,15 +45,15 @@ session_start();
       if(password_verify($passwordStore, $row["Hash"]))
       {
         echo "Worked" . "<br>";
-//<<<<<<< HEAD
+
          echo $_SESSION["uname"] . "<br>";
         $_SESSION["uname"] = $unameStore;
         echo $_SESSION["uname"] . "<br>";
         
-//=======
+
 	$_SESSION["Id"] = $row['Id'];
 	echo $_SESSION['Id'];
-//>>>>>>> Session
+
       } // if
       else {
        echo "Incorrect username or password" . "<br>";
@@ -65,10 +65,10 @@ session_start();
      echo "Incorrect Username or Password." . "<br>";
      $connection -> close();
    } // else
-//<<<<<<< HEAD
-//<<<<<<< HEAD
-//=======
-//=======
+
+
+
+
   echo $_SESSION["Id"];
  // echo '   <a href="myMachines.php">Click here to See your machines</a>';
 
@@ -78,8 +78,8 @@ session_start();
   $extra = 'index.html';
   header("refresh:5; url=myMachines.php");
   exit;
-//>>>>>>> Session
 
 
-//>>>>>>> Session
+
+
 ?>

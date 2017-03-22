@@ -133,9 +133,9 @@ if($title_valid){
 
 $connection->close();
 echo "<br>";
-echo ' <a href="test.html"> go back</a>';
+echo ' <a href="SaveTM.html"> go back</a>';
 echo "<br>";
-echo ' <a href="sqlCheck.php">See result in the database</a>';
+echo ' <a href="Discover.php">Discover all public TMs</a>';
 ?>
 
 </body>
