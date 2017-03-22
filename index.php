@@ -25,8 +25,7 @@ $SignedIn;
   else {
     $_SESSION["uname"] = "default";
     echo "Not currently signed in";
-    $SignedIn = 
-
+    $SignedIn = False;
   }
   ?>
   </p>
