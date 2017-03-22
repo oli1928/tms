@@ -36,12 +36,20 @@ $SignedIn;
       <li><a href="Discover.php">Discover</a></li>
       <li><a href="#someLink">someLink</a></li>
       <li><a href="myMachines.php">my Machines</a></li>
+      <?php if(!(isset($_SESSION['Id']))) { ?>
       <span class="loginbutton"><li><button onclick="document.getElementById('id01').style.display='block'" class="loginbutton">Login</button></li></span>
       <span class="signupbutton"><li><button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Sign Up</button></li></span>
+ <?php } ?>
+ <?php if(isset($_SESSION['Id'])) { ?>
+  <form action="LogOut.php" method="post">
+  <span class="logoutbutton"><li><button class="logoutbutton" type="submit" >Logout</button></li></span>
+  </form>
+<?php } ?>
     </ul>
   </div>
 
 <!-- Log in button -->
+
 <div id="id01" class="modal">
 
   <form class="modal-content animate" action = "login.php" method = "post">
