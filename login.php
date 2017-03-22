@@ -9,6 +9,7 @@
 </html>
 
 <?php
+  session_start();
   require_once('config.inc.php');
 
   // Create connection to database
@@ -26,7 +27,6 @@
 
   $unameStore = $_POST["uname"];
   $passwordStore = $_POST["psw"];
-
   $hash = password_hash($passwordStore, PASSWORD_BCRYPT);
 
   // Check to see if username exists
@@ -35,7 +35,7 @@
   if ($result->num_rows > 0) {
     // If user does indeed exist
 
-    $hashedPSWD_Query = "SELECT Hash FROM Users WHERE Name = '$unameStore'";
+    $hashedPSWD_Query = "SELECT Hash, Id FROM Users WHERE Name = '$unameStore'";
     $hashedPSWD = $connection->query($hashedPSWD_Query);
     if($hashedPSWD->num_rows > 0){
       $row = $hashedPSWD->fetch_assoc();
@@ -43,6 +43,8 @@
       if(password_verify($passwordStore, $row["Hash"]))
       {
         echo "Worked" . "<br>";
+	$_SESSION["Id"] = $row['Id'];
+	echo $_SESSION['Id'];
       } // if
       else {
        echo "Incorrect username or password" . "<br>";
@@ -54,6 +56,9 @@
      echo "Incorrect Username or Password." . "<br>";
      $connection -> close();
    } // else
+  echo $_SESSION["Id"];
+  echo '   <a href="myMachines.php">Click here to See your machines</a>';
+
 
 /*
     // Insert user into database
