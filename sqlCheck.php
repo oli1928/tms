@@ -72,7 +72,7 @@ session_start();
  #   $result -> close(); //Remember to release the result set
  # }
   $mysqli -> close();
-echo ' <a href="choice.html"> go back</a>';
+echo ' <a href="index.php"> go back</a>';
 ?>
 </body>
 </html>
