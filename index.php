@@ -16,6 +16,7 @@ $SignedIn;
 </head>
 <body>
   <span class="title-tms">TURING MACHINE SIMULATOR</span>
+  <p>
   <?php
   if(isset($_SESSION['Id'])){
     echo "Hello id: ". $_SESSION['Id'];
@@ -28,6 +29,7 @@ $SignedIn;
 
   }
   ?>
+  </p>
   <div class="nav-bar">
     <ul>
       <li><a class="active" href="#home">Home</a></li>
