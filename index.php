@@ -9,7 +9,12 @@ session_start();
   Turing Machine Simulator
 </title>
 <?php
-  $_SESSION["uname"] = "default";
+  if(isset($_SESSION['Id'])){
+    echo "Hello id: ". $_SESSION['Id'];
+  } // if
+  else {
+    $_SESSION["uname"] = "default";
+  }
   ?>
 <head>
   <link rel="stylesheet" type="text/css" href="mainstyle.css">
