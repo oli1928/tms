@@ -204,3 +204,8 @@ select{
     cursor: pointer;
     width: 100%;
 }
+
+#title{
+    outline: none;
+    border: none;
+}
