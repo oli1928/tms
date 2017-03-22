@@ -542,7 +542,7 @@ $SignedIn;
 
 //make a variable the sql commands to pass into the database
       $input_data = "INSERT INTO TM(Title, Description, isPublic, TMCode, AuthourId)
-VALUES('$Title','$Description','$isPublic','$TMCode','$AuthourId')";
+VALUES('$Title','$Description','$isPublic','$TMCode',$AuthourId)";
 //All the valid variables nested so it will only try if all fields are valid
       if($title_valid){
           if($description_valid){
