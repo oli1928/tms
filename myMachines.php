@@ -12,24 +12,38 @@
   // Connect to the database
 
   $mysqli = new  mysqli($database_host, $database_user, $database_pass, $database_name);
-  $user_Id = $_SESSION['Id'];
+  $user_id = $_SESSION['Id'];
   //Check for errors before doing anything else
   if($mysqli -> connect_error)  {
     die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
   }
 
+$sql = "SELECT Id, Name, Email  FROM Users";
+  $result = $mysqli->query($sql);
+  if($result->num_rows > 0) {
+    while($row = $result->fetch_assoc())  {
+      if($row["Id"] == $user_id) {
+	echo "----------------------------------";
+	echo "<br>Welcome ". $row["Name"];
+	
+      } // if
+    } // while
+  } // if
+   
+/*
 
 
   echo "<br> <br>". $user_Id ;
   //Method for uptung the info on the user that is signed in
-  $sql = "SELECT * FROM USERS WHERE Id == $user_Id";
+  $sql = "SELECT Name, Email FROM USERS ";
   $result = $mysqli->query($sql);
-  if($result->num_rows>0)
+  if($result->num_rows > 0)
     while($row = $result->fetch_assoc())  {
       echo "------------------------------";
       echo "Name: ". $row['Name']."<br>";
       echo "Email: " . $row['Email']."<br><br>";
    } // while
+*/
   //method for outputting the TM
   $sql = "SELECT Users.Name, TM.*, TM.ID
           FROM Users, TM
@@ -38,7 +52,7 @@
 
   if($result->num_rows > 0) {
     while($row = $result->fetch_assoc())  {
-      if($row["AuthourId"] == $user_Id)
+      if($row["AuthourId"] == $user_id)
       {
         echo "----------------------------------------";
         echo"<br>Id: ".$row["ID"];

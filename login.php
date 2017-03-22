@@ -76,7 +76,7 @@ session_start();
   $host = $_SERVER['HTTP_HOST'];
   $uri = rtrim(dirname($_SERVER['PHP_SELF']),'/\\');
   $extra = 'index.html';
-  header("refresh:5; url=index.html");
+  header("refresh:5; url=myMachines.php");
   exit;
 //>>>>>>> Session
 
