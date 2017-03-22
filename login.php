@@ -38,11 +38,11 @@ session_start();
   if ($result->num_rows > 0) {
     // If user does indeed exist
 
-    $hashedPSWD_Query = "SELECT Hash FROM Users WHERE Name = '$unameStore'";
+    $hashedPSWD_Query = "SELECT Hash, Id FROM Users WHERE Name = '$unameStore'";
     $hashedPSWD = $connection->query($hashedPSWD_Query);
     if($hashedPSWD->num_rows > 0){
       $row = $hashedPSWD->fetch_assoc();
-      echo $row["Hash"] . "<br>";
+      echo $row["Hash"] . $row["Id"]. "<br>";
       if(password_verify($passwordStore, $row["Hash"]))
       {
         echo "Worked" . "<br>";
@@ -61,4 +61,9 @@ session_start();
      echo "Incorrect Username or Password." . "<br>";
      $connection -> close();
    } // else
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Session
 ?>
