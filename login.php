@@ -46,15 +46,15 @@ session_start();
       if(password_verify($passwordStore, $row["Hash"]))
       {
         echo "Worked" . "<br>";
-<<<<<<< HEAD
+//<<<<<<< HEAD
          echo $_SESSION["uname"] . "<br>";
         $_SESSION["uname"] = $unameStore;
         echo $_SESSION["uname"] . "<br>";
         
-=======
+//=======
 	$_SESSION["Id"] = $row['Id'];
 	echo $_SESSION['Id'];
->>>>>>> Session
+//>>>>>>> Session
       } // if
       else {
        echo "Incorrect username or password" . "<br>";
@@ -66,15 +66,21 @@ session_start();
      echo "Incorrect Username or Password." . "<br>";
      $connection -> close();
    } // else
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
+//<<<<<<< HEAD
+//<<<<<<< HEAD
+//=======
+//=======
   echo $_SESSION["Id"];
-  echo '   <a href="myMachines.php">Click here to See your machines</a>';
+ // echo '   <a href="myMachines.php">Click here to See your machines</a>';
 
->>>>>>> Session
+  //Inspired by php.net
+  $host = $_SERVER['HTTP_HOST'];
+  $uri = rtrim(dirname($_SERVER['PHP_SELF']),'/\\');
+  $extra = 'index.html';
+  header("Location:http://$host$uri/$extra");
+  exit;
+//>>>>>>> Session
 
 
->>>>>>> Session
+//>>>>>>> Session
 ?>

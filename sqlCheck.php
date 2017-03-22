@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 <head>
 <title>Results from database</title>
@@ -5,10 +8,9 @@
 </head>
 <body>
 <?php
-
   // Load the config file containg my database details
   require_once('config.inc.php');
-
+  $user_id = $_SESSION['Id'];
   // Connect to the database
 
   $mysqli = new  mysqli($database_host, $database_user, $database_pass, $database_name);
@@ -20,6 +22,16 @@
 
   $sql = "SELECT Id, Name, Email  FROM Users";
   $result = $mysqli->query($sql);
+  if($result->num_rows > 0) {
+    while($row = $result->fetch_assoc())  {
+      if($row["Id"] == $user_id) {
+	echo "----------------------------------";
+	echo "<br>Welcome ". $row["Name"];
+	
+      } // if
+    } // while
+  } // if
+   
 
 
   echo "<br> <br>";
