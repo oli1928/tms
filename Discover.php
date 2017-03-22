@@ -1,5 +1,6 @@
 <?php
 session_start();
+$SignedIn;
 ?>
 <html>
 <head>
@@ -11,7 +12,19 @@ session_start();
   // Load the config file containg my database details
   require_once('config.inc.php');
   $user_id = $_SESSION['Id'];
+  if(isset($_SESSION['Id'])){
+    echo "Hello id: ". $_SESSION['Id'];
+    $SignedIn = True;
+  }
+  else {
+    $_SESSION['Id'] = "default";
+    $SignedIn = False;
+  }
+
+
   // Connect to the database
+
+
 
   $mysqli = new  mysqli($database_host, $database_user, $database_pass, $database_name);
 
@@ -20,18 +33,21 @@ session_start();
     die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
   }
 
-  $sql = "SELECT Id, Name, Email  FROM Users";
-  $result = $mysqli->query($sql);
-  if($result->num_rows > 0) {
-    while($row = $result->fetch_assoc())  {
-      if($row["Id"] == $user_id) {
-	echo "----------------------------------";
-	echo "<br>Welcome ". $row["Name"];
-	
-      } // if
-    } // while
+  if($SignedIn){
+    $sql = "SELECT Id, Name, Email  FROM Users";
+    $result = $mysqli->query($sql);
+    if($result->num_rows > 0) {
+      while($row = $result->fetch_assoc())  {
+        if($row["Id"] == $user_id) {
+  	  echo "----------------------------------";
+	  echo "<br>Welcome ". $row["Name"];
+        } // if
+      } // while
+    } // if
   } // if
-   
+  else {
+    echo "Not Currently Signed in";
+ } // else
 
 
   echo "<br> <br>";
