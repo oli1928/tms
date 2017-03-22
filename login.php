@@ -12,7 +12,6 @@ session_start();
 </html>
 
 <?php
-  session_start();
   require_once('config.inc.php');
 
   // Create connection to database
