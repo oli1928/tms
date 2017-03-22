@@ -99,7 +99,7 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-}
+};
 window.onclick = function(event) {
     if (event.target == modal2) {
         modal2.style.display = "none";
@@ -109,6 +109,7 @@ window.onclick = function(event) {
 
   <?php
   session_start();
+  $_SESSION['Id'] = 1;
 
   class Tape
   {
@@ -406,10 +407,138 @@ window.onclick = function(event) {
       $_SESSION['code'] = preg_replace("/\n\r/", "~", $_POST['input']);
 
   }
+
+  if (isset($_POST['save'])){
+      //Variables to store the actual title and a boolean to make sure it is in the right format
+      $title_valid = false;
+      $Title = $_POST["Title"];
+
+      //checks to see if the string is empty
+      if(strlen($Title) == 0){
+          echo"You haven't entered your title.";
+          echo "<br>";
+      }
+      //Copied code from w3school to check that the name is valid
+      else if(!preg_match("/^[a-zA-Z]*$/",$Title)){
+          echo"Your title appears to be invalid, only letters and white space allowed";
+          echo"<br>";
+      }
+      //With the title checked and all clear make it valid
+      else{
+          echo"Title: ";
+          echo$_POST["Title"];
+          $title_valid = true;
+          echo"<br>";
+      }
+
+
+      //Variables to store the actual description and a boolean to make sure it is in the right format
+      $Description = $_POST["Description"];
+      $description_valid = false;
+
+
+      //Checks to see if the description is empty, but as this isnt required it is still calid
+      if($Description == " "){
+          echo"You haven't entered your Description.";
+          $description_valid = true;
+      }
+      //Assuming that the
+      //Copied code from w3school to check that the name is valid if not will not post to the DB
+      else if(!preg_match("/^[a-zA-Z]*$/",$Title)){
+          echo"Your description appears to be invalid, only letters and white space allowed";
+          echo"<br>";
+      }
+      //The description is in the right format and so will be put in the DB
+      else{
+          echo "Your Turing Machine description is: ";
+          echo$_POST["Description"];
+          $description_valid = true;
+      }
+      echo"<br>";
+
+//Variables to store the value of whether the Tm is public or not
+      $isPublic = $_POST["isPublic"];
+      echo "<br>";
+//If the user chose private
+      if($isPublic == "private")
+      {
+          echo "Your turing machine will be made private only you will be able to see it";
+          echo"<br>";
+          $isPublic = 0;
+      }
+//if the user chose public
+      else if($isPublic == "public"){
+          echo "Your turing machine will be made public to other users";
+          echo"<br>";
+          $isPublic = 1;
+      }
+
+//variables to get the info of the authour id, hopefully later on this will be auto filled by the
+//user having a login to pass their id to this form
+      $AuthourId = $_SESSION['Id'];
+      $AuthourId_valid = true;
+//We only need to check to see if they have entered a number
+      if(strlen($AuthourId) == 0){
+          $authourId_valid = false;
+      }
+
+//Variables to store the TMCode and later will put in the compiler to check the validity of the code
+      $TMCode = $_POST["input"];
+      $TMCode_valid = false;
+//checks for an empty string
+      if($TMCode == " "){
+          echo"You haven't entered your TM code";
+      }
+//assuming all is good TMCode is passed on
+      else{
+          echo"Your TM code to be entered into the database is"."<br>".": ";
+          echo$_POST["input"];
+          echo "<br>";
+          $TMCode_valid = true;
+      }
+
+
+
+      require_once('config.inc.php');
+
+// Create a connection to the database
+      $connection = new mysqli($database_host, $database_user, $database_pass, $database_name);
+
+//then check the connection
+      if($connection  ->connect_error) {
+          die("Connection failed: " . $connection->connect_error);
+      }
+
+//make a variable the sql commands to pass into the database
+      $input_data = "INSERT INTO TM(Title, Description, isPublic, TMCode, AuthourId)
+VALUES('$Title','$Description','$isPublic','$TMCode','$AuthourId')";
+//All the valid variables nested so it will only try if all fields are valid
+      if($title_valid){
+          if($description_valid){
+              if($TMCode_valid){
+                  if($AuthourId_valid){
+                      if ($connection->query($input_data) === TRUE) {
+                          echo "New data successfully input into the database<br>";
+                      }
+                      else {
+                          echo "Error: ".$input_data."<br>".$connection->error;
+                      }
+                  }
+              }
+          }
+      }
+
+
+      $connection->close();
+      echo "<br>";
+      echo ' <a href="SaveTM.html"> go back</a>';
+      echo "<br>";
+      echo ' <a href="Discover.php">Discover all public TMs</a>';
+  }
   ?>
 
   <link rel="stylesheet" type="text/css" href="simulatorstyle.css">
-  <script type='text/javascript' src="../behave.js"></script>
+  <script type='text/javascript' src="behave.js"></script>
   <script type="text/javascript">
 
       window.onload = function(){
@@ -462,7 +591,7 @@ window.onclick = function(event) {
 
           var tape_div = "<div id=\""+tape_name+"\" class=\"tape_div\"></div>";
           $("#tapes").append(tape_div);
-          $('#'+tape_name).append("<div id=\"description@"+tape_name+"\" class=\"tape_description\">"+tape_name+"<br><div id=\"direction@"+tape_name+"\" class=\"tape_direction\"><></div>")
+          $('#'+tape_name).append("<div id=\"description@"+tape_name+"\" class=\"tape_description\">"+tape_name+"<br><div id=\"direction@"+tape_name+"\" class=\"tape_direction\"><></div>");
           for (var i = 0; i < 15; i++)
           {
               if (i != 7) {
@@ -503,7 +632,7 @@ window.onclick = function(event) {
               running = true;
               output_array = <?php echo $_SESSION['array']?>;
               init_machine(output_array[0]);
-              $("#tapes-title").text("Step: 0 - Tapes - State: "+output_array[0][3])
+              $("#tapes-title").text("Step: 0 - Tapes - State: "+output_array[0][3]);
 
               setTimeout(function(){set_string_timer(1, 0)}, 2000);
           }
@@ -514,7 +643,7 @@ window.onclick = function(event) {
 
 
 
-          $("#tapes-title").text("Step: "+output_array[ix][2]+" - Tapes - State: "+output_array[ix][3])
+          $("#tapes-title").text("Step: "+output_array[ix][2]+" - Tapes - State: "+output_array[ix][3]);
 
 
           for (itape = 0; itape<output_array[0][1].length; itape++) {
@@ -567,9 +696,6 @@ window.onclick = function(event) {
               <div id="control-button">
           <button onclick="run_machine()">Run</button>
               </div>
-              <div id="control-button">
-          <button>Reset</button>
-              </div>
           </div>
           <form method="post">
               <input type="submit" value="Compile" name="compile">
@@ -585,14 +711,18 @@ window.onclick = function(event) {
   <div id="save-load-form">
       SAVE/LOAD
       <div class="save-load">
-      <form method="post">
+      <form method="post" id="slform">
           <select>
           </select>
-          <input type="submit">
+          <input type="submit" value="Load" name="load">
 
-          <input type="submit">
-          <input type="text">
-          <textarea cols="80" rows="10"></textarea>
+          <input type="submit" value="Save" name="save">
+          <input type="text" name="Title">
+          <input type="radio" name="isPublic" value="private">Private<br>
+          <input type="radio" name="isPublic" value="public" checked>Public<br>
+          <div id="ab">
+          <textarea rows="10" name="Description" id="description"></textarea>
+          </div>
       </form>
       </div>
   </div>
