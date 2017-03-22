@@ -12,6 +12,7 @@ session_start();
 </html>
 
 <?php
+  session_start();
   require_once('config.inc.php');
 
   // Create connection to database
@@ -29,7 +30,6 @@ session_start();
 
   $unameStore = $_POST["uname"];
   $passwordStore = $_POST["psw"];
-
   $hash = password_hash($passwordStore, PASSWORD_BCRYPT);
 
   // Check to see if username exists
@@ -46,10 +46,15 @@ session_start();
       if(password_verify($passwordStore, $row["Hash"]))
       {
         echo "Worked" . "<br>";
+<<<<<<< HEAD
          echo $_SESSION["uname"] . "<br>";
         $_SESSION["uname"] = $unameStore;
         echo $_SESSION["uname"] . "<br>";
         
+=======
+	$_SESSION["Id"] = $row['Id'];
+	echo $_SESSION['Id'];
+>>>>>>> Session
       } // if
       else {
        echo "Incorrect username or password" . "<br>";
@@ -62,7 +67,13 @@ session_start();
      $connection -> close();
    } // else
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+  echo $_SESSION["Id"];
+  echo '   <a href="myMachines.php">Click here to See your machines</a>';
+
+>>>>>>> Session
 
 
 >>>>>>> Session
