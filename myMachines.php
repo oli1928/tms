@@ -82,7 +82,7 @@ $sql = "SELECT Id, Name, Email  FROM Users";
  # }
 */
   $mysqli -> close();
-echo ' <a href="index.html"> Homepage</a>';
+echo ' <a href="index.php"> Homepage</a>';
 ?>
 </body>
 </html>
