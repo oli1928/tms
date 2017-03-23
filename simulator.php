@@ -445,7 +445,7 @@ $SignedIn;
       $_SESSION['code'] = create_machine($_POST["input"]);
       $_SESSION['array'] = $_SESSION['machine']->run();
       echo $_SESSION['code'];
-
+      header("Refresh:0");
 
 
 
@@ -770,10 +770,10 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
 
               if (move[1] == output_array[0][1][itape]){
-                  if (move[0]== "l") {
+                  if (move[0]== "L") {
                     $(document.getElementById("direction@" + output_array[0][1][itape])).text("<");
                 }
-                else if (move[0] == "r") {
+                else if (move[0] == "R") {
                     $(document.getElementById("direction@" + output_array[0][1][itape])).text(">");
                 }
               }
@@ -883,7 +883,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
         setKeywordText("input", code);
         document.getElementById("input").setAttribute("rows", length);
         $(document.getElementById("line-numbers")).append(line_nums);
-        updateTMList();
+
 
         console.log("update");
 
