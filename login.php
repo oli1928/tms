@@ -31,7 +31,7 @@ if($result = $connection -> query("SELECT * FROM Things")) {
   $passwordStore = $_POST["psw"];
   $hash = password_hash($passwordStore, PASSWORD_BCRYPT);
 
-if(!preg_match("/^[a-zA-Z]*$/",$unameStore) {
+if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
   if(filter_var($email, FILTER_VALIDATE_EMAIL)){
   // Check to see if username exists
   $result = $connection->query("SELECT Uname FROM Users WHERE
