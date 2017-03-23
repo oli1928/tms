@@ -631,7 +631,8 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
           } // while
       }
       $mysqli->close();
-      header("Refresh:0");
+      echo $_COOKIE['code_input'];
+      //header("Refresh:0");
 
   }
 
