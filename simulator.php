@@ -432,8 +432,7 @@ if (!(isset($_SESSION['error'])))
   function create_machine($required_input_string)
   {
       $required_input_array = convert_input_string($required_input_string);
-        echo "dfadfasdffad".$required_input_array."dsfggsdfg";
-        echo $_SESSION['error']."sdfsfdgsdfghsdhdg";
+        echo "aaaaaaaaaaaaaaaaaaa".$_SESSION['error']."bbbbbbbbbbbbbb";
       if ($required_input_array != true) {
           $_SESSION['error'] = false;
           echo "sfdfsdfsf";
