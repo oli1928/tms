@@ -755,7 +755,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
       function run_machine() {
           if (running == false) {
               running = true;
-              <?php $_SESSION['code'] = array()?>
+              <?php $_SESSION['array'] = array()?>
               output_array = <?php echo $_SESSION['array']?>;
               init_machine(output_array[0]);
               $("#tapes-title").text("Step: 0 - Tapes - State: "+output_array[0][3]);
