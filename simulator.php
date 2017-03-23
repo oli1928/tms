@@ -8,7 +8,7 @@ if (!(isset($_SESSION['array'])))
 }
 if (!(isset($_SESSION['code'])))
 {
-    $_SESSION['code'] = "");
+    $_SESSION['code'] = "";
 }
 ?>
 <!DOCTYPE html>
