@@ -19,7 +19,7 @@ class ErrorHandler
       throw new Exception($message);
     } catch (Exception $e) {
       $this->printException($message, $token);
-      exit(0);
+      // exit(0);
     }
   }
  
@@ -28,12 +28,13 @@ class ErrorHandler
   // Print out the exception. This might be an external class object.
   // This might be embedded in html tags as well.
   private function printException($message, $token) {
-    echo "Error Message: " . $message;
+    $errorString =  "Error Message: " . $message;
     if($token != null) {
-      echo "\nOn line: " . ($token['line'] + 1);
-      echo "\nError: " . substr($this->codeArray[$token['line']], $token['offset']);
-      echo "\n";
+      $errorString .= "\nOn line: " . ($token['line'] + 1);
+      $errorString .= "\nError: " . substr($this->codeArray[$token['line']], $token['offset']);
+      $errorString .= "\n";
     }
+    throw new Exception($errorString);
   }
 } // ErrorHandler 
 
