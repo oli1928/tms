@@ -11,7 +11,7 @@ if (!(isset($_SESSION['motd'])))
 <!-- Used w3Schools -->
 <html>
 <title>
-  Turing Machine Simulator
+  Turing Machine Simulator New
 </title>
 
 <head>
