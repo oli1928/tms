@@ -859,7 +859,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
   <div id="simulator-main-div">
       <div id="tapes"><div id="tapes-title">Step: 0 - Tapes - State: </div></div>
-        <div id="error"><?php echo $_SESSION['error']?></div>
+        
           <div id="control-button-box">
               <div id="control-button">
           <button onclick="run_machine()">Run</button>
@@ -867,6 +867,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
           </div>
           <form method="post">
               <input type="submit" value="Compile" name="compile" onclick="setCookie('code_input', $('#input').val(), 365)">
+              <div id="error"><?php echo $_SESSION['error']?></div>
               <div id="text-input-div" style="overflow-y: scroll; height:600px;">
                   <div class="container">
                       <div class="line-nums"><span id="line-numbers"></span></div>
