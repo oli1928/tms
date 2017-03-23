@@ -501,7 +501,7 @@ if (!(isset($_SESSION['error'])))
       //With the title checked and all clear make it valid
       else{
           echo"Title: ";
-          echo$_POST["Title"];
+          echo $_POST["Title"];
           $title_valid = true;
           echo"<br>";
       }
@@ -847,6 +847,8 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
       {
           var exdate=new Date()
           
+          <?php $_SESSION['error'] = false ?>
+          
           console.log(value);
           
           exdate.setDate(exdate.getDate()+expiredays)
@@ -882,7 +884,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
       <div class="save-load">
       <form method="post" id="slform">
           <div id="select-div">
-          <select id="select" name="select">
+          <select id="select" name="select" size="8">
           </select>
           </div>
           <input type="submit" value="Load" name="load">
