@@ -421,6 +421,7 @@ if (!(isset($_SESSION['error'])))
           $code_compiler = new CodeCompiler($required_input_string);
           print_r( $code_compiler->getArrays());
           return $code_compiler->getArrays();
+          $_SESSION['error'] = false;
       }
       catch (Exception $exception){
           $_SESSION['error'] = $exception->getMessage();
