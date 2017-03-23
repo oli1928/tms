@@ -875,7 +875,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
           </div>
           <input type="submit" value="Load" name="load">
 
-          <input type="submit" value="Save" name="save" onclick="setCookie("code_input", $("#input").val(), 365)">
+          <input type="submit" value="Save" name="save" onclick="setCookie('code_input', $('#input').val(), 365)">
           <input type="text" name="Title" placeholder="Name">
           <input type="radio" name="isPublic" value="private">Private<input type="radio" name="isPublic" value="public" checked>Public<br>
           <div id="ab">
