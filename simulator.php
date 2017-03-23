@@ -421,7 +421,7 @@ if (!(isset($_SESSION['error'])))
           $code_compiler = new CodeCompiler($required_input_string);
           print_r( $code_compiler->getArrays());
           return $code_compiler->getArrays();
-          $_SESSION['error'] = false;
+          
       }
       catch (Exception $exception){
           $_SESSION['error'] = $exception->getMessage();
@@ -434,6 +434,7 @@ if (!(isset($_SESSION['error'])))
       $required_input_array = convert_input_string($required_input_string);
 
       if ($required_input_array != true) {
+          $_SESSION['error'] = false;
           echo "sfdfsdfsf";
           $_SESSION['machine'] = new Machine($required_input_array[3], $required_input_array[4]);
           foreach ($required_input_array[6] as $tape)
