@@ -627,7 +627,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
               if ($row["AuthourId"] == $user_id) {
 
                  if ($row["Title"] == $_POST['select']){
-                     $_COOKIE['code_input'] = $row["TMCode"];
+                     setcookie("code_input", $row["TMCode"], time()+(86400*365), "/");
                      $_SESSION['code'] = $row["TMCode"];
                  }
 
