@@ -10,6 +10,10 @@ if (!(isset($_SESSION['code'])))
 {
     $_SESSION['code'] = "";
 }
+if (!(isset($_SESSION['error'])))
+{
+    $_SESSION['error'] = "";
+}
 ?>
 <!DOCTYPE html>
 <!-- Used w3Schools -->
@@ -537,7 +541,7 @@ if (!(isset($_SESSION['code'])))
       }
 
 //Variables to store the TMCode and later will put in the compiler to check the validity of the code
-      $TMCode = $_SESSION['code'];
+      $TMCode = $_POST['input'];
       $TMCode_valid = false;
 //checks for an empty string
       if($TMCode == " "){
@@ -545,9 +549,6 @@ if (!(isset($_SESSION['code'])))
       }
 //assuming all is good TMCode is passed on
       else{
-          echo"Your TM code to be entered into the database is"."<br>".": ";
-          echo$_SESSION['code'];
-          echo "<br>";
           $TMCode_valid = true;
       }
 
