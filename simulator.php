@@ -421,6 +421,7 @@ if (!(isset($_SESSION['error'])))
       $code_compiler = new CodeCompiler($required_input_string);
 
       print_r( $code_compiler->getArrays());
+          $_SESSION['error'] = false;
 
 
 
@@ -437,11 +438,15 @@ if (!(isset($_SESSION['error'])))
   {
       $required_input_array = convert_input_string($required_input_string);
       $error = false;
+
+
+
       if ($required_input_array == true)
       {
           $error = true;
       }
-      if ($error == false) {
+      if ($error == 1) {
+          echo "sfdfsdfsf";
           $_SESSION['machine'] = new Machine($required_input_array[3], $required_input_array[4]);
           foreach ($required_input_array[6] as $tape)
           {
@@ -463,17 +468,17 @@ if (!(isset($_SESSION['error'])))
               $_SESSION['machine']->add_string($data, $required_input_array[6][array_search($data, $required_input_array[7])]);
           }
           $_SESSION['machine']->set_step_limit(500);
-      } else {
-          var_dump($error);
       }
-
       return $required_input_string;
   }
 
-  if (isset($_POST['compile']))
-  {
+  if (isset($_POST['compile'])) {
       $_SESSION['code'] = create_machine($_POST["input"]);
-      $_SESSION['array'] = $_SESSION['machine']->run();
+
+      if ($_SESSION['error'] == false) {
+          $_SESSION['array'] = $_SESSION['machine']->run();
+      }
+
       echo $_SESSION['code'];
       header("Refresh:0");
 
