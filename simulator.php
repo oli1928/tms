@@ -447,6 +447,7 @@ $SignedIn;
       $_SESSION['code'] = create_machine($_POST["input"]);
       $_SESSION['array'] = $_SESSION['machine']->run();
       echo $_SESSION['code'];
+      header("Refresh:0");
 
 
 
@@ -575,6 +576,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
 
       $connection->close();
+      header("Refresh:0");
 
 
 
@@ -902,7 +904,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
         {
             <?php $_SESSION['Tms'] = array()?>
             <?php get_user_machines()?>
-            tm = "<?php echo json_encode($_SESSION['Tms'])?>";
+            tm = <?php echo json_encode($_SESSION['Tms'])?>;
 
             $(document.getElementById("select")).remove();
             $(document.getElementById("select-div")).append("<select id='select' name='select'></select>");
