@@ -464,7 +464,7 @@ if (!(isset($_SESSION['error'])))
   }
 
   if (isset($_POST['compile'])) {
-      $_SESSION['code'] = create_machine($_POST["input"]);
+      $_SESSION['code'] = create_machine($_COOKIE["code_input"]);
 
       if ($_SESSION['error'] == false) {
           echo "fsdddddddddddddd";
