@@ -632,7 +632,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
       $mysqli->close();
 
       $_SESSION["Tms"] = json_encode($_SESSION["Tms"]);
-      header("Refresh:0");
+
 
   }
 
