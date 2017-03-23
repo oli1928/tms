@@ -467,6 +467,7 @@ if (!(isset($_SESSION['error'])))
       }
 
       echo $_SESSION['code'];
+      echo $_SESSION['error'];
       //header("Refresh:0");
 
 
@@ -853,7 +854,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
   <div id="simulator-main-div">
       <div id="tapes"><div id="tapes-title">Step: 0 - Tapes - State: </div></div>
-
+        <div id="error"><?php echo $_SESSION['error']?></div>
           <div id="control-button-box">
               <div id="control-button">
           <button onclick="run_machine()">Run</button>
