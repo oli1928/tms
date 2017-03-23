@@ -561,8 +561,8 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
 
       $connection->close();
+      header("Refresh:0");
 
-      get_user_machines();
 
 
   }
@@ -632,6 +632,8 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
       $mysqli->close();
 
       $_SESSION["Tms"] = json_encode($_SESSION["Tms"]);
+      header("Refresh:0");
+
   }
 
 
