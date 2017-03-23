@@ -644,7 +644,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
           // Connect to the database
 
-          $mysqli = new  mysqli($database_host, $database_user, $database_pass, "2016_comp10120_m4");
+          $mysqli = new  mysqli("dbhost.cs.man.ac.uk", "mbaxaof2", "Cheese12", "2016_comp10120_m4");
           $user_id = $_SESSION['Id'];
           //Check for errors before doing anything else
           if ($mysqli->connect_error) {
