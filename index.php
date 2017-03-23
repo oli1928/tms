@@ -2,6 +2,10 @@
 ob_start();
 session_start();
 $SignedIn;
+if (!(isset($_SESSION['motd'])))
+{
+    $_SESSION['motd'] = "";
+}
 ?>
 <!DOCTYPE html>
 <!-- Used w3Schools -->
