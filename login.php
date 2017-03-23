@@ -45,14 +45,13 @@ if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
       // Correct credentials hence log in
 
       $row = $hashedPSWD->fetch_assoc();
-      echo $row["Hash"] . $row["Id"]. "<br>";
       if(password_verify($passwordStore, $row["Hash"]))
       {
-        $_SESSION["uname"] = $unameStore;
+        $_SESSION['uname'] = $unameStore;
 	      $_SESSION["Id"] = $row['Id'];
 
         //Inspired by php.net
-        //header("refresh:5; url=myMachines.php");
+        $_SESSION['motd'] = "Log in successful.";
         $host  = $_SERVER['HTTP_HOST'];
         $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
         $myMachinesPHP = 'myMachines.php';
@@ -62,6 +61,7 @@ if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
       } // if
       else {
          // User puts wrong username/password so send them back to index.php
+         $_SESSION['motd'] = "Wrong username or password.";
          $host  = $_SERVER['HTTP_HOST'];
          $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
          $indexPHP = 'index.php';

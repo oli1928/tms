@@ -20,14 +20,16 @@ $SignedIn;
   <br><br>
   <?php
   if(isset($_SESSION['Id'])){
-    echo "Hello id: ". $_SESSION['Id'];
+    echo $_SESSION['Id'];
     $SignedIn = True;
   } // if
   else {
     $_SESSION["uname"] = "default";
-    echo "Not currently signed in";
+
+    // Message of the day. Use this as a dynamic mesage to user
     $SignedIn = False;
   }
+echo $_SESSION['motd'];
   ?>
   </h1>
   <div class="nav-bar">
