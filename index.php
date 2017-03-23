@@ -19,7 +19,7 @@ if (!(isset($_SESSION['motd'])))
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
-  <span class="title-tms">TURING MACHINE SIMULATOR</span>
+  <span class="title-tms">TURING MACHINE SIMULATOR NEW</span>
   <h1 id="hs">
   <br><br>
   <?php
