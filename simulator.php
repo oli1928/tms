@@ -597,6 +597,8 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
           } // while
       }
       $mysqli->close();
+      header("Refresh:0");
+
   }
 
 
