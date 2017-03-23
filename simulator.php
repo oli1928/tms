@@ -34,7 +34,7 @@ $SignedIn;
     <ul>
         <li><a class="active" href="index.php">Home</a></li>
         <li><a href="Discover.php">Discover</a></li>
-        <li><a href="Simulator.php">Simulator</a></li>
+        <li><a href="simulator.php">Simulator</a></li>
         <li><a href="myMachines.php">my Machines</a></li>
         <?php if(!(isset($_SESSION['Id']))) { ?>
             <span class="loginbutton"><li><button onclick="document.getElementById('id01').style.display='block'" class="loginbutton">Login</button></li></span>
@@ -130,7 +130,7 @@ $SignedIn;
         if (event.target == modal2) {
             modal2.style.display = "none";
         }
-    }
+    };
 
     window.onclick = function(event) {
         if (event.target == modal1) {
@@ -561,7 +561,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
 
       $connection->close();
-        header("Refresh:0");
+
       get_user_machines();
 
 
@@ -597,7 +597,6 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
           } // while
       }
       $mysqli->close();
-      header("Refresh:0");
   }
 
 
@@ -640,8 +639,8 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
   ?>
 
-  <link rel="stylesheet" type="text/css" href="simulatorstyle.css">
-  <script type='text/javascript' src="behave.js"></script>
+  <link rel="stylesheet"; type="text/css"; href="simulatorstyle.css">
+  <script type='text/javascript'; src="behave.js"></script>
   <script type="text/javascript">
 
       window.onload = function(){
@@ -792,6 +791,8 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
       }
   </script>
 
+
+
   <div id="simulator-main-div">
       <div id="tapes"><div id="tapes-title">Step: 0 - Tapes - State: </div></div>
 
@@ -822,15 +823,26 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
           <input type="submit" value="Load" name="load">
 
           <input type="submit" value="Save" name="save">
-          <input type="text" name="Title">
-          <input type="radio" name="isPublic" value="private">Private<br>
-          <input type="radio" name="isPublic" value="public" checked>Public<br>
+          <input type="text" name="Title" placeholder="Name">
+          <input type="radio" name="isPublic" value="private">Private<input type="radio" name="isPublic" value="public" checked>Public<br>
           <div id="ab">
-          <textarea rows="10" name="Description" id="description"></textarea>
+          <textarea rows="10" name="Description" id="description" placeholder="Description"></textarea>
           </div>
       </form>
       </div>
   </div>
+
+<script>
+
+    console.log(<?php echo json_encode($SignedIn) ?>);
+
+    if (<?php echo json_encode($SignedIn) ?> == false)
+    {
+        $(document.getElementById("save-load-form")).remove();
+        console.log("hi")
+    }
+
+</script>
 
 <script>
     function setKeywordText(id, text) {
@@ -877,6 +889,8 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
     }
 
     updateTMList();
+
+
 
 
 </script>
