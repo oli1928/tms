@@ -641,6 +641,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
                  if ($row["Title"] == $_POST['select']){
                      $_COOKIE['code_input'] = $row["TMCode"];
+                     $_SESSION['code'] = $row["TMCode"];
                  }
 
               } // if
