@@ -35,6 +35,8 @@ if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
   if(filter_var($email, FILTER_VALIDATE_EMAIL)){
     // Check to see if username exists
     $result = $connection->query("SELECT Uname FROM Users WHERE
+  // Check to see if username exists
+  $result = $connection->query("SELECT Uname FROM Users WHERE
                             Uname = '$unameStore'");
     if ($result->num_rows > 0) {
       // If user does indeed exist
@@ -44,10 +46,14 @@ if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
       if($hashedPSWD->num_rows > 0){
         // Correct credentials hence log in
 
-<<<<<<< HEAD
       $row = $hashedPSWD->fetch_assoc();
       if(password_verify($passwordStore, $row["Hash"]))
       {
+        // Log in successful. Unset the error messages related to logging in
+        // These error messages are used to make modal pop up again once user is linked back to index.php
+        unset($_SESSION['errMSGlogin']);
+
+
         $_SESSION['uname'] = $unameStore;
 	      $_SESSION["Id"] = $row['Id'];
 
@@ -62,7 +68,8 @@ if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
       } // if
       else {
          // User puts wrong username/password so send them back to index.php
-         $_SESSION['motd'] = "Wrong username or password.";
+         $_SESSION['errMSGlogin'] = "Incorrect username or password.";
+
          $host  = $_SERVER['HTTP_HOST'];
          $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
          $indexPHP = 'index.php';
@@ -71,7 +78,6 @@ if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
        } // else
     } // if
     $connection -> close();
-=======
         $row = $hashedPSWD->fetch_assoc();
         echo $row["Hash"] . $row["Id"]. "<br>";
         if(password_verify($passwordStore, $row["Hash"]))
@@ -97,10 +103,11 @@ if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
         } // else
       } // if
       $connection -> close();
->>>>>>> login bug
   } // if
   else {
      // Send user back to index.php
+      $_SESSION['errMSGlogin'] = "Incorrect username or password.";
+
      $host  = $_SERVER['HTTP_HOST'];
      $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
      $indexPHP = 'index.php';
@@ -109,10 +116,17 @@ if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
      $connection -> close();
    } // else
   } // if
-<<<<<<< HEAD
  } // if
 
-=======
 } // if
->>>>>>> login bug
+ else {
+  // Send user back to homepage. Used annoying characters. This is for sanitisation
+   $_SESSION['errMSGlogin'] = "Incorrect username or password.";
+   $host  = $_SERVER['HTTP_HOST'];
+   $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+   $indexPHP = 'index.php';
+   header("Location: http://$host$uri/$indexPHP");
+   exit;
+   $connection -> close();
+  } // else
 ?>

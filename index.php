@@ -20,7 +20,7 @@ if (!(isset($_SESSION['motd'])))
 </head>
 <body>
   <span class="title-tms">TURING MACHINE SIMULATOR</span>
-  <h1>
+  <h1 id="hs">
   <br><br>
   <?php
   if(isset($_SESSION['Id'])){
@@ -33,8 +33,13 @@ if (!(isset($_SESSION['motd'])))
     // Message of the day. Use this as a dynamic mesage to user
     $SignedIn = False;
   }
-echo $_SESSION['motd'];
+if(isset($_SESSION['motd']))
+{
+  echo $_SESSION['motd'];
+} // if
   ?>
+
+
   </h1>
   <div class="nav-bar">
     <ul>
@@ -71,8 +76,14 @@ echo $_SESSION['motd'];
 
       <label><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="psw" required>
+      <?php
+      if(isset($_SESSION['errMSGlogin'])) {
+        echo $_SESSION['errMSGlogin'] . "<br>";
+      } // if
+      ?>
 
       <button type="submit">Login</button>
+
       <input type="checkbox" checked="checked"> Remember me
     </div>
 
@@ -83,17 +94,16 @@ echo $_SESSION['motd'];
   </form>
 </div>
 
-<script>
-// Get the modal
-var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+<?php
+// If error messages are set. User has been linked back from login (or signup).php. So make modals pop up again
+if(isset($_SESSION['errMSGlogin'])){
+  echo "<script>
+document.getElementById('id01').style.display = 'block';
 </script>
+";
+unset($_SESSION['errMSGlogin']);
+}?>
+
 <!-- Sign up button -->
 
 
