@@ -624,7 +624,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
               if ($row["AuthourId"] == $user_id) {
 
                  if ($row["Title"] == $_POST['select']){
-                     $_SESSION['code'] = $row["TMCode"];
+                     $_COOKIE['code_input'] = $row["TMCode"];
                  }
 
               } // if
@@ -855,7 +855,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
               </div>
           </div>
           <form method="post">
-              <input type="submit" value="Compile" name="compile">
+              <input type="submit" value="Compile" name="compile" onclick="setCookie('code_input', $('#input').val(), 365)">
               <div id="text-input-div" style="overflow-y: scroll; height:600px;">
                   <div class="container">
                       <div class="line-nums"><span id="line-numbers"></span></div>
