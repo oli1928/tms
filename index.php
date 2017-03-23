@@ -119,6 +119,12 @@ unset($_SESSION['errMSGlogin']);
       <label><b>Email</b></label>
       <input type="text" placeholder="Enter Email" name="email" required>
 
+      <?php
+      echo "GHJBVJ";
+      if(isset($_SESSION['errMSGUnameEmail'])) {
+        echo $_SESSION['errMSGUnameEmail'] . "<br>";
+      } // if
+      ?>
       <label><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="psw" required>
 
@@ -134,7 +140,17 @@ unset($_SESSION['errMSGlogin']);
     </div>
   </form>
 </div>
-
+<?php
+// If error messages are set. User has been linked back from login (or signup).php. So make modals pop up again
+echo $_SESSION['errMSGUnameEmail'];
+if(isset($_SESSION['errMSGUnameEmail'])){
+echo "hkdgfhas";
+  echo "<script>
+document.getElementById('id02').style.display = 'block';
+</script>
+";
+unset($_SESSION['errMSGUnameEmail']);
+}?>
 <script>
 // Get the modal
 var modal1 = document.getElementById('id01');

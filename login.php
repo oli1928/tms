@@ -31,7 +31,7 @@ if($result = $connection -> query("SELECT * FROM Things")) {
   $passwordStore = $_POST["psw"];
   $hash = password_hash($passwordStore, PASSWORD_BCRYPT);
 
-if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
+if(preg_match("/^[a-zA-Z]*$/",$unameStore)){
   // Check to see if username exists
   $result = $connection->query("SELECT Uname FROM Users WHERE
                             Uname = '$unameStore'");
@@ -65,7 +65,7 @@ if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
       } // if
       else {
          // User puts wrong username/password so send them back to index.php
-         $_SESSION['errMSGlogin'] = "Incorrect username or password.";
+         $_SESSION['errMSGlogin'] = "Incorrect username or password. 1";
 
          $host  = $_SERVER['HTTP_HOST'];
          $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -78,7 +78,7 @@ if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
   } // if
   else {
      // Send user back to index.php
-      $_SESSION['errMSGlogin'] = "Incorrect username or password.";
+      $_SESSION['errMSGlogin'] = "Incorrect username or password. 2";
 
      $host  = $_SERVER['HTTP_HOST'];
      $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -90,7 +90,7 @@ if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
   } // if
  else {
   // Send user back to homepage. Used annoying characters. This is for sanitisation
-   $_SESSION['errMSGlogin'] = "Incorrect username or password.";
+   $_SESSION['errMSGlogin'] = "Incorrect username or password. 3";
    $host  = $_SERVER['HTTP_HOST'];
    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
    $indexPHP = 'index.php';

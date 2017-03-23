@@ -43,7 +43,8 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
                             Uname = '$unameStore' OR
                             Email = '$emailStore'");
   if ($result->num_rows > 0) {
-    // Send user back to index.php
+    // Send user back to index.php. Username already exists
+    $_SESSION['errMSGUnameEmail'] = "That user already exists.";
     $host  = $_SERVER['HTTP_HOST'];
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     $indexPHP = 'index.php';
@@ -57,6 +58,8 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
     VALUES ('$unameStore', '$nameStore', '$emailStore', '$hash')";
 
     if ($connection->query($insert_user) === TRUE) {
+      // Signup successful
+      unset($_SESSION['errMSGUnameEmail']);
       $_SESSION["uname"] = $unameStore;
       // Send user back to index.php
       $host  = $_SERVER['HTTP_HOST'];
@@ -78,6 +81,7 @@ if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 else {
   // Invalid email so send back to index.php
   // Send user back to index.php
+  $_SESSION['errMSGUnameEmail'] = "Invalid email address.";
   $host  = $_SERVER['HTTP_HOST'];
   $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
   $indexPHP = 'index.php';
