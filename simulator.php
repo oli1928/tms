@@ -418,15 +418,9 @@ if (!(isset($_SESSION['error'])))
       require_once (__DIR__.'/validation/Services/CodeCompiler.php');
       
       try{
-      $code_compiler = new CodeCompiler($required_input_string);
-
-      print_r( $code_compiler->getArrays());
-          $_SESSION['error'] = false;
-
-
-
-
-      return $code_compiler->getArrays();
+          $code_compiler = new CodeCompiler($required_input_string);
+          print_r( $code_compiler->getArrays());
+          return $code_compiler->getArrays();
       }
       catch (Exception $exception){
           $_SESSION['error'] = $exception->getMessage();
@@ -437,15 +431,8 @@ if (!(isset($_SESSION['error'])))
   function create_machine($required_input_string)
   {
       $required_input_array = convert_input_string($required_input_string);
-      $error = false;
 
-
-
-      if ($required_input_array == true)
-      {
-          $error = true;
-      }
-      if ($error == 1) {
+      if ($required_input_array != true) {
           echo "sfdfsdfsf";
           $_SESSION['machine'] = new Machine($required_input_array[3], $required_input_array[4]);
           foreach ($required_input_array[6] as $tape)
@@ -480,7 +467,7 @@ if (!(isset($_SESSION['error'])))
       }
 
       echo $_SESSION['code'];
-      header("Refresh:0");
+      //header("Refresh:0");
 
 
 
