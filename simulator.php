@@ -396,7 +396,7 @@ $SignedIn;
 
   function convert_input_string($required_input_string)
   {
-      require_once ('validation/Services/CodeCompiler.php');
+      require_once (__DIR__.'/validation/Services/CodeCompiler.php');
       $code_compiler = new CodeCompiler($required_input_string);
 
       print_r( $code_compiler->getArrays());
