@@ -34,7 +34,7 @@ $SignedIn;
     <ul>
       <li><a class="active" href="index.php">Home</a></li>
       <li><a href="Discover.php">Discover</a></li>
-      <li><a href="Simulator.php">Simulator</a></li>
+      <li><a href="simulator.php">Simulator</a></li>
       <li><a href="myMachines.php">my Machines</a></li>
       <?php if(!(isset($_SESSION['Id']))) { ?>
       <span class="loginbutton"><li><button onclick="document.getElementById('id01').style.display='block'" class="loginbutton">Login</button></li></span>
