@@ -576,6 +576,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
 
       $connection->close();
+      header("Refresh:0");
    
 
 
@@ -918,6 +919,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
     if (<?php echo json_encode($SignedIn)?> == true)
     {
         updateTMList();
+        console.log("Load update");
     }
 
 
