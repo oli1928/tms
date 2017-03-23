@@ -926,7 +926,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
     }
 
-    stuff = ""+<?php echo json_encode($_SESSION['code'])?>;
+    stuff = ""+<?php echo json_encode($_COOKIE['code_input'])?>;
 
     setCode(stuff);
 
