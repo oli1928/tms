@@ -138,11 +138,12 @@ $SignedIn;
         }
     }
 </script>
-</script>
+
+
 
   <?php
 
-  class Tape
+  class TickerTape
   {
       private $positive_tape = array();
       private $negative_tape = array();
@@ -293,7 +294,7 @@ $SignedIn;
       function add_tape($required_tape_name)
       {
           array_push($this->ticker_tapes_index, $required_tape_name);
-          array_push($this->ticker_tapes, new Tape($this->blank_symbol));
+          array_push($this->ticker_tapes, new TickerTape($this->blank_symbol));
       }
 
       function set_step_limit($required_step_limit)
@@ -395,47 +396,58 @@ $SignedIn;
 
   function convert_input_string($required_input_string)
   {
-      return array(array("tape", "tape2", "tape3"), array("R", "S", "E"), "S", array("E"), array("1", "0", "#"), "0", array(array("S", "#@tape", "#@tape", "r@tape", "R"),
-          array("S", "0@tape", "1@tape", "r@tape", "R"), array("S", "1@tape", "0@tape", "r@tape", "R"), array("R", "0@tape", "1@tape", "r@tape", "R"),
-          array("R", "1@tape", "0@tape", "r@tape", "R"), array("R", "#@tape", "#@tape", "r@tape2", "E")), array(array("#", "1", "0", "1", "1", "0", "1", "0", "#"), array("1", "1")), 200);
+      require_once ('validator/Services/CodeCompiler.php');
+      $code_compiler = new CodeCompiler($required_input_string);
+
+      print_r( $code_compiler->getArrays());
+
+
+
+
+      return $code_compiler->getArrays();
   }
 
-  function create_machine($required_input_array)
+  function create_machine($required_input_string)
   {
-      $required_input_array = convert_input_string($required_input_array);
+      $required_input_array = convert_input_string($required_input_string);
       $error = false;
       if ($error == false) {
-          $_SESSION['machine'] = new Machine($required_input_array[4], $required_input_array[5]);
-          foreach ($required_input_array[0] as $tape)
+          $_SESSION['machine'] = new Machine($required_input_array[3], $required_input_array[4]);
+          foreach ($required_input_array[6] as $tape)
           {
               $_SESSION['machine']->add_tape($tape);
           }
-          foreach ($required_input_array[1] as $state)
+          foreach ($required_input_array[0] as $state)
           {
               $_SESSION['machine']->add_state($state);
           }
-          $_SESSION['machine']->select_start_state($required_input_array[2]);
-          $_SESSION['machine']->select_end_states($required_input_array[3]);
-          foreach ($required_input_array[6] as $rule)
+          $_SESSION['machine']->select_start_state($required_input_array[1]);
+          $_SESSION['machine']->select_end_states($required_input_array[2]);
+          foreach ($required_input_array[5] as $rule)
           {
-              $_SESSION['machine']->add_rule($rule);
+              $_SESSION['machine']->add_rule(array($rule[0], $rule[1], $rule[3], $rule[4], $rule[2]));
           }
           foreach ($required_input_array[7] as $data)
           {
 
-              $_SESSION['machine']->add_string($data, $required_input_array[0][array_search($data, $required_input_array[7])]);
+              $_SESSION['machine']->add_string($data, $required_input_array[6][array_search($data, $required_input_array[7])]);
           }
-          $_SESSION['machine']->set_step_limit($required_input_array[8]);
+          $_SESSION['machine']->set_step_limit(500);
       } else {
           var_dump($error);
       }
+
+      return $required_input_string;
   }
 
   if (isset($_POST['compile']))
   {
-      create_machine("train");
+      $_SESSION['code'] = create_machine($_POST["input"]);
       $_SESSION['array'] = $_SESSION['machine']->run();
-      $_SESSION['code'] = $_POST['input'];
+      echo $_SESSION['code'];
+
+
+
 
   }
 
@@ -561,7 +573,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
 
       $connection->close();
-      header("Refresh:0");
+
 
 
 
@@ -872,6 +884,8 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
         document.getElementById("input").setAttribute("rows", length);
         $(document.getElementById("line-numbers")).append(line_nums);
         updateTMList();
+
+        console.log("update");
 
     }
 
