@@ -82,5 +82,5 @@ if(!preg_match("/^[a-zA-Z]*$/",$unameStore)){
    } // else
   } // if
  } // if
-} // if
+
 ?>
