@@ -467,6 +467,9 @@ if (!(isset($_SESSION['error'])))
   }
 
   if (isset($_POST['save'])){
+
+      $_SESSION['code']=$_POST['input'];
+
       //Variables to store the actual title and a boolean to make sure it is in the right format
       $title_valid = false;
       $Title = $_POST["Title"];
@@ -585,7 +588,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
 
       $connection->close();
-      header("Refresh:0");
+      //header("Refresh:0");
    
 
 
