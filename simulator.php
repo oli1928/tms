@@ -650,7 +650,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
           }
           $mysqli->close();
 
-          $_SESSION["Tms"] = json_encode($_SESSION["Tms"]);
+          $_SESSION["Tms"] = $_SESSION["Tms"];
       }
 
 
