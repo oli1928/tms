@@ -2,6 +2,14 @@
 ob_start();
 session_start();
 $SignedIn;
+if (!(isset($_SESSION['array'])))
+{
+    $_SESSION['array'] = json_encode(array());
+}
+if (!(isset($_SESSION['code'])))
+{
+    $_SESSION['code'] = "");
+}
 ?>
 <!DOCTYPE html>
 <!-- Used w3Schools -->
@@ -755,7 +763,7 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
       function run_machine() {
           if (running == false) {
               running = true;
-              <?php $_SESSION['array'] = json_encode(array())?>
+              
               output_array = <?php echo $_SESSION['array']?>;
               init_machine(output_array[0]);
               $("#tapes-title").text("Step: 0 - Tapes - State: "+output_array[0][3]);
@@ -897,7 +905,6 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
 
     }
 
-    <?php $_SESSION['code'] = ""?>
     stuff = ""+<?php echo json_encode($_SESSION['code'])?>;
 
     setCode(stuff);
