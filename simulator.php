@@ -2,6 +2,10 @@
 ob_start();
 session_start();
 $SignedIn;
+if (!(isset($_COOKIE['code_input'])))
+{
+    $_COOKIE['code_input'] = "";
+}
 $_SESSION['code']=$_COOKIE['code_input'];
 if (!(isset($_SESSION['array'])))
 {
