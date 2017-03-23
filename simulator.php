@@ -416,6 +416,8 @@ if (!(isset($_SESSION['error'])))
   function convert_input_string($required_input_string)
   {
       require_once (__DIR__.'/validation/Services/CodeCompiler.php');
+      
+      try{
       $code_compiler = new CodeCompiler($required_input_string);
 
       print_r( $code_compiler->getArrays());
@@ -424,12 +426,21 @@ if (!(isset($_SESSION['error'])))
 
 
       return $code_compiler->getArrays();
+      }
+      catch (Exception $exception){
+          $_SESSION['error'] = $exception->getMessage();
+          return true;
+      }
   }
 
   function create_machine($required_input_string)
   {
       $required_input_array = convert_input_string($required_input_string);
       $error = false;
+      if ($required_input_array == true)
+      {
+          $error = true;
+      }
       if ($error == false) {
           $_SESSION['machine'] = new Machine($required_input_array[3], $required_input_array[4]);
           foreach ($required_input_array[6] as $tape)
