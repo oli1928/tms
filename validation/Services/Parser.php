@@ -686,13 +686,13 @@ class Parser
     // Execute the pattern to get the matches.
     if($tapesData == -1) {
       // @ErrorHandler
-      $this->errorHandler->errHandle("tapesData is not defined correctly.",
+      $this->errorHandler->errHandle("tapeData is not defined correctly.",
                                      $error);
       // echo "tapesData state non declared correctly. "
     }
     if($tapesData == -2) {
       // @ErrorHandler
-      $this->errorHandler->errHandle("tapesData unexpected error during parsing.",
+      $this->errorHandler->errHandle("tapeData unexpected error during parsing.",
                                      $error);
       // echo "tapesData unexpected error during parsing.. "      
     }
