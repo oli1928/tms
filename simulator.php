@@ -2,6 +2,7 @@
 ob_start();
 session_start();
 $SignedIn;
+$_SESSION['code']=$_COOKIE['code_input'];
 if (!(isset($_SESSION['array'])))
 {
     $_SESSION['array'] = json_encode(array());
@@ -468,7 +469,7 @@ if (!(isset($_SESSION['error'])))
 
   if (isset($_POST['save'])){
 
-      $_SESSION['code']=$_COOKIE['code_input'];
+      
 
       //Variables to store the actual title and a boolean to make sure it is in the right format
       $title_valid = false;
@@ -830,6 +831,9 @@ VALUES('$Title','$Description','$isPublic','$TMCode', $AuthourId)";
       function setCookie(c_name,value,expiredays)
       {
           var exdate=new Date()
+          
+          console.log(value);
+          
           exdate.setDate(exdate.getDate()+expiredays)
           document.cookie=c_name+ "=" +escape(value)+
               ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
