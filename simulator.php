@@ -432,6 +432,7 @@ if (!(isset($_SESSION['error'])))
   function create_machine($required_input_string)
   {
       $required_input_array = convert_input_string($required_input_string);
+      print_r($required_input_array)
         echo "aaaaaaaaaaaaaaaaaaa".$_SESSION['error']."bbbbbbbbbbbbbb";
       if ($required_input_array != true) {
           $_SESSION['error'] = false;
@@ -465,6 +466,7 @@ if (!(isset($_SESSION['error'])))
       $_SESSION['code'] = create_machine($_POST["input"]);
 
       if ($_SESSION['error'] == false) {
+          echo "fsdddddddddddddd";
           $_SESSION['array'] = $_SESSION['machine']->run();
       }
 
