@@ -565,7 +565,7 @@ if (!(isset($_SESSION['error'])))
       }
 
 //Variables to store the TMCode and later will put in the compiler to check the validity of the code
-      $TMCode = $_SESSION['code'];
+      $TMCode = $_COOKIE['code_input'];
       $TMCode_valid = false;
 //checks for an empty string
       if($TMCode == " "){
